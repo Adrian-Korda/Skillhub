@@ -1,27 +1,51 @@
-# backend (java)
+## global / os files
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+
+## ide settings
+.idea/
+.vscode/
+*.iml
+*.classpath
+*.project
+*.settings/
+
+## backend (java)
 /backend/target/
-/backend/.mvn/wrapper/maven-wrapper.jar
 /backend/help.md
 *.class
-*.log
+## ignoring executable jars, but keeping the maven wrapper
 *.jar
+!/backend/.mvn/wrapper/maven-wrapper.jar
 
-# frontend (react)
+## frontend (react)
 /frontend/node_modules/
 /frontend/build/
 /frontend/dist/
-/frontend/.env
-.DS_Store
+## ignoring all local environment files with secrets
+/frontend/.env*
+!/frontend/.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# python
+## python / ai data
 __pycache__/
 *.pyc
 /MarketPredictor/venv/
-/MarketPredictor/.idea/
-/MarketPredictor/stats.csv
-/MarketPredictor/jobs.csv
+/MarketPredictor/.venv/
+## ignoring data files (security + repo size)
+*.csv
+*.xlsx
+*.json
+## keeping specific config jsons if needed
+!package.json
+!tsconfig.json
+!vercel.json
 
-# ide settings
-.idea/
-.vscode/
-*.swp
+## ignoring the ai models (too big for git)
+*.pkl
+*.h5
+*.joblib
