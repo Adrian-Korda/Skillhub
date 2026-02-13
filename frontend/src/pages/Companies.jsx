@@ -18,7 +18,7 @@ const Companies = () => {
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/companies/info');
+                const response = await axios.get('https://skillhub-backend-g2ef.onrender.com/api/companies/info');
                 setCompanies(response.data);
             } catch (error) {
                 console.error(error);
@@ -36,7 +36,7 @@ const Companies = () => {
         setCompanyJobs([]);
 
         try {
-            const response = await axios.get(`http://localhost:8080/api/companies/${companyName}/jobs`);
+            const response = await axios.get(`https://skillhub-backend-g2ef.onrender.com/api/companies/${companyName}/jobs`);
             setCompanyJobs(response.data);
         } catch (error) {
             console.error(error);

@@ -18,7 +18,7 @@ const AnalyticsChart = ({ defaultSkill }) => {
     useEffect(() => {
         const fetchSkills = async () => {
             try {
-                const res = await axios.get('http://localhost:8080/api/jobs/skills');
+                const res = await axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/skills');
                 setAllSkills(res.data);
             } catch (err) {
                 console.error(err);
@@ -31,7 +31,7 @@ const AnalyticsChart = ({ defaultSkill }) => {
         const fetchStats = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://localhost:8080/api/jobs/stats?skill=${encodeURIComponent(skill)}`);
+                const response = await axios.get(`https://skillhub-backend-g2ef.onrender.com/api/jobs/stats?skill=${encodeURIComponent(skill)}`);
                 const formattedData = Object.entries(response.data).map(([date, count]) => ({
                     date: date.slice(5),
                     jobs: count

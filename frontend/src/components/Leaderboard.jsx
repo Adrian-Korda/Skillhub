@@ -11,8 +11,8 @@ const Leaderboard = () => {
         const fetchData = async () => {
             try {
                 const [topRes, growthRes] = await Promise.all([
-                    axios.get('http://localhost:8080/api/jobs/top-list'),
-                    axios.get('http://localhost:8080/api/jobs/growth-list')
+                    axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/top-list'),
+                    axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/growth-list')
                 ]);
 
                 setTopSkills(topRes.data);

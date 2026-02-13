@@ -19,9 +19,9 @@ const Trends = () => {
             try {
                 const [topRes, risingRes, fallingRes] =
                     await Promise.all([
-                        axios.get('http://localhost:8080/api/jobs/top-skill'),
-                        axios.get('http://localhost:8080/api/jobs/rising-skill'),
-                        axios.get('http://localhost:8080/api/jobs/falling-skill')
+                        axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/top-skill'),
+                        axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/rising-skill'),
+                        axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/falling-skill')
                     ]);
 
                 setStats({

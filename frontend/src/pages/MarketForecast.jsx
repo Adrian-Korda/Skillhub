@@ -38,7 +38,7 @@ const MarketForecast = () => {
             if (cachedSkills) {
                 setAllSkills(JSON.parse(cachedSkills));
             } else {
-                const res = await axios.get('http://localhost:8080/api/jobs/skills');
+                const res = await axios.get('https://skillhub-backend-g2ef.onrender.com/api/jobs/skills');
                 setAllSkills(res.data);
                 sessionStorage.setItem("all_skills_list", JSON.stringify(res.data));
             }
@@ -62,8 +62,8 @@ const MarketForecast = () => {
 
         try {
             const url = skill
-                ? `http://localhost:8080/api/ai/predict?skill=${encodeURIComponent(skill)}`
-                : `http://localhost:8080/api/ai/predict`;
+                ? `https://skillhub-backend-g2ef.onrender.com/api/ai/predict?skill=${encodeURIComponent(skill)}`
+                : `https://skillhub-backend-g2ef.onrender.com/api/ai/predict`;
 
             const response = await axios.get(url);
 
