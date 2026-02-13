@@ -1,9 +1,11 @@
-## SkillHub Market Predictor using scikit-learn to forecast tech skill demand based on job listings
+## SkillHub market predictor using scikit-learn to forecast tech skill demand based on job listings
 
 import pandas as pd
 import json
 import sys
+import os
 import warnings
+from sqlalchemy import create_engine
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
 
@@ -75,7 +77,23 @@ def main():
     results = []
 
     try:
-        df = pd.read_csv("jobs.csv") ## reading the jobs dataset
+        db_url = os.getenv("DATABASE_URL") ## getting database url from environment variables
+
+        if not db_url:
+            print(json.dumps({"error": "DATABASE_URL environment variable not set"}))
+            sys.exit(1)
+
+        if db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql://", 1) ## fixing render db url format for sqlalchemy
+
+        engine = create_engine(db_url) ## creating database connection engine
+
+        query = "SELECT job_title, detected_skills, date_posted FROM job_listings"
+        df = pd.read_sql(query, engine) ## reading data directly from postgres database
+
+        if df.empty:
+            print(json.dumps({"error": "Database is empty, no jobs found"}))
+            sys.exit(0)
 
         df["date_posted"] = pd.to_datetime(df["date_posted"]) ## converting dates to datetime objects
 
@@ -104,9 +122,6 @@ def main():
             result = predict_skill_trend(df, pivoted, rolling, target, model, skill)
             results.append(result)
 
-    except FileNotFoundError:
-        print(json.dumps({"error": "jobs.csv not found in directory"}))
-        sys.exit(1)
     except Exception as e:
         print(json.dumps({"error": str(e)}))
         sys.exit(1)

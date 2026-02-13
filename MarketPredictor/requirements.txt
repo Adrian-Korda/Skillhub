@@ -2,3 +2,5 @@ pandas
 numpy
 scikit-learn
 requests
+psycopg2-binary
+sqlalchemy
