@@ -59,13 +59,13 @@ public class PredictionService {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                output.append(line); // reading the json output
+                output.append(line).append("\n"); // reading the json output
             }
 
             int exitCode = process.waitFor();
 
             if (exitCode != 0) {
-                return "{\"error\": \"Script failed\"}";
+                return "{\"error\": \"Script failed with code " + exitCode + ": " + output.toString().replace("\"", "'").replace("\n", " ") + "\"}"; // returning the actual python error
             }
 
             String result = output.toString();
