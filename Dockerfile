@@ -1,8 +1,8 @@
 ## stage 1: build the java application
-FROM maven:3.8.5-openjdk-17 AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-## copying the project files to the container
+## copying the project files
 COPY backend/pom.xml .
 COPY backend/src ./src
 
@@ -10,25 +10,25 @@ COPY backend/src ./src
 RUN mvn clean package -DskipTests
 
 ## stage 2: setup the runtime environment
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
-## installing python3 and pip manually since this image only has java
+## installing python3 and pip
 RUN apt-get update && \
     apt-get install -y python3 python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
-## copying the python script folder to the container
+## copying the python script folder
 COPY MarketPredictor /app/MarketPredictor
 
-## installing the required python libraries from requirements.txt
+## installing python libraries
 RUN pip3 install -r /app/MarketPredictor/requirements.txt
 
-## copying the compiled jar file from the build stage (stage 1)
+## copying the compiled jar from stage 1
 COPY --from=build /app/target/*.jar app.jar
 
-## exposing port 8080 so the web service can be accessed
+## exposing the port
 EXPOSE 8080
 
-## starting the spring boot application
+## starting the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
