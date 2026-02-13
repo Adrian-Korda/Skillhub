@@ -1,0 +1,27 @@
+# backend (java)
+/backend/target/
+/backend/.mvn/wrapper/maven-wrapper.jar
+/backend/help.md
+*.class
+*.log
+*.jar
+
+# frontend (react)
+/frontend/node_modules/
+/frontend/build/
+/frontend/dist/
+/frontend/.env
+.DS_Store
+
+# python
+__pycache__/
+*.pyc
+/MarketPredictor/venv/
+/MarketPredictor/.idea/
+/MarketPredictor/stats.csv
+/MarketPredictor/jobs.csv
+
+# ide settings
+.idea/
+.vscode/
+*.swp
