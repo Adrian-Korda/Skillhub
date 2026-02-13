@@ -3,8 +3,8 @@ FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
 ## copying the project files
-COPY backend/pom.xml .
-COPY backend/src ./src
+COPY Backend/pom.xml .
+COPY Backend/src ./src
 
 ## building the jar file and skipping tests for speed
 RUN mvn clean package -DskipTests
