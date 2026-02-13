@@ -83,6 +83,8 @@ def main():
             print(json.dumps({"error": "DATABASE_URL environment variable not set"}))
             sys.exit(1)
 
+        db_url = db_url.strip()
+
         if db_url.startswith("postgres://"):
             db_url = db_url.replace("postgres://", "postgresql://", 1) ## fixing render db url format for sqlalchemy
 
