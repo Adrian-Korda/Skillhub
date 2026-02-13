@@ -3,8 +3,8 @@ FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
 ## copying the project files
-COPY Backend/pom.xml .
-COPY Backend/src ./src
+COPY backend/pom.xml .
+COPY backend/src ./src
 
 ## building the jar file and skipping tests for speed
 RUN mvn clean package -DskipTests
@@ -13,9 +13,9 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
-## installing python3 and pip
+## installing python3, pip, and the 'python-is-python3' package
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
+    apt-get install -y python3 python3-pip python-is-python3 && \
     rm -rf /var/lib/apt/lists/*
 
 ## copying the python script folder
